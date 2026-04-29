@@ -1,0 +1,249 @@
+use database - to swich the databes or to select the database
+show databases - to list out the databases
+show tables - to list out all the tables from the table in specified db
+
+describe table - to describe about that particular table
+select * from table - to the data
+------------------------------------------------------------------------------------------------
+create table student_copy(
+    sid int(4),
+    sname varchar(20),
+    semail varchar(20),
+    sdoclasses date
+);
+-------------------------------------------------------------------------------------
+
+
+
+
+Insert:
+Insert can be doen in 3 ways
+1. to all columns:
+    syntax: 
+       insert into tablename values(v1,v2,v3,v4.....vn)
+    example:
+        insert into student values(101,"Anu','anu@gamil.com','pfs');
+
+
+2. to few columns:
+   synatx:
+        insert into tablename(c1,c2,c3,...cn)values(v1,v2,v3...,vn)
+   example:
+        insert into student(sid,s_name,s_email,s_course) values(102,'Radha','radha@gmail.com','jsf')
+
+3. from one table to another table
+
+   synatx:
+        insert into table_name select * from, another_table;
+    example:
+        insert into student_copy select * from student;
+        
+-----------------------------------------------------------------------------------------------------------
+2. Update:
+
+  syntx:
+        update table_name set c1=v1,c2=v2,.... where condtion;
+  examples:
+        update student_info set s_email = 'newemail' where id = 101;
+        update student_info set semail='newvalue',sname = 'newvalue' where id= 101;
+--------------------------------------------------------------------------------------------------------
+3. delete:
+synatx:
+    delete from table_name where condtion;
+examples:
+    delet from student_info wheredept_name is null;
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| myinfo             |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.09 sec)
+
+mysql> use myinfo
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_myinfo |
++------------------+
+| studentinfo      |
++------------------+
+1 row in set (0.02 sec)
+
+mysql> describe studentinfo
+    -> describe studentinfo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'describe studentinfo' at line 2
+mysql> desc studentinfo;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sid       | int         | YES  |     | NULL    |       |
+| sname     | varchar(20) | YES  |     | NULL    |       |
+| semail    | varchar(20) | YES  |     | NULL    |       |
+| doclasses | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> select * from studentinfo;
+Empty set (0.07 sec)
+
+mysql> insert into studentinfo values(101,'Anu','anu@gmail.com','2025-09-29');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentinfo;
++------+-------+---------------+------------+
+| sid  | sname | semail        | doclasses  |
++------+-------+---------------+------------+
+|  101 | Anu   | anu@gmail.com | 2025-09-29 |
++------+-------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into studentinfo values(102,'Radha','Radha@gmail.com','2026-01-29');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentinfo;
++------+-------+-----------------+------------+
+| sid  | sname | semail          | doclasses  |
++------+-------+-----------------+------------+
+|  101 | Anu   | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha | Radha@gmail.com | 2026-01-29 |
++------+-------+-----------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into studentinfo values(103,'Deepika','Deepika@gmail','2024-10-10'),(104,'jp','jp@gmail.com','2023-02-12');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentinfo;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
++------+---------+-----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into studentinfo values(105,'Ivanshi,'Radha@gmail.com','2026-01-29');
+    '> insert into studentinfo values(105,'Ivanshi','Radha@gmail.com','2026-01-29');
+    '> ^C
+mysql> insert into studentinfo values(105,'Ivanshi','Radha@gmail.com','2026-01-29');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into studentinfo valus(106,'Ivani','a@gmail.com','2026-01-28');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valus(106,'Ivani','a@gmail.com','2026-01-28')' at line 1
+mysql> insert into studentinfo values(106,'Ivani','a@gmail.com','2026-01-28');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentinfo;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 |
++------+---------+-----------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into studentinfo(sid,sname) values(107,'Hemani');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentinfo;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 |
+|  107 | Hemani  | NULL            | NULL       |
++------+---------+-----------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> create table studentinfo_copy(
+    -> sid int(4),
+    -> sname varchar(20),
+    -> semail varchar(20),
+    -> doclasses date
+    -> );
+Query OK, 0 rows affected, 1 warning (0.09 sec)
+
+mysql> select * from studentinfo_copy;
+Empty set (0.01 sec)
+
+mysql> insert into studentinfo_copy select * from studentinfo;
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentinfo_copy;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 |
+|  107 | Hemani  | NULL            | NULL       |
++------+---------+-----------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> update studentinfo set semail='ivani@gmail.com' where id=106;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update studentinfo set semail='ivani@gmail.com' where sid=106;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from studentinfo;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | ivani@gmail.com | 2026-01-28 |
+|  107 | Hemani  | NULL            | NULL       |
++------+---------+-----------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from studentinfo where semail is null;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentinfo;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | ivani@gmail.com | 2026-01-28 |
++------+---------+-----------------+------------+
+6 rows in set (0.00 sec)
+
+
+ 
+
+
+ 
