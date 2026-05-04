@@ -1,0 +1,373 @@
+DDL-Data Definiton Lnaguage
+CADRT
+
+Create
+Alter
+Drop
+Rename
+Truncate
+
+
+Create -
+--------------------------------------------------------------------------------------------
+Alter - in alter we have modify,add,drop,rename
+1.Modify -  
+   Syntax:
+            alter table table_name MODIFY column_name datatype/size;
+2.Add - Add one coulmn or mutiple columns
+    Syntax: alter table table_name ADD(col_name datatype);
+            alter table table_name Add(col_name dtype, col_n2 datatype);
+
+  
+3.Rename - with alter
+using this we can rename a column name or table name but prefreble for coulmn names
+    Synatx:Alter table table_name RENAME column old_col_name to new-col_name;
+    we can also use change- need no to mention coulmn and to;Task
+4.Drop - here column keyword should be mentioned
+   synatx: alter table table_name DROP coulmn col_name;
+
+5. Add Constraint - alter table table_name Add constraint pk_student key(id);
+--------------------------------------------------------------------------------------------
+Rename - this is used to rename the table name, mutiple table names can e renamed;
+
+syntax: 
+   rename table table_name oldname  to newname;
+   rename table (std_table to Std_table, data_into to Dtainfo);Task
+
+----------------------------------------------------------------------------------------
+4. Truncate - Help to remove the row data along with memory allocation where the memoallocation after deleting will be rest.
+
+truncate table table_name;
+-------------------------------------------------------------------------------------
+5. Drop - drop will delete/remove/destroy the complete structure of the table.
+
+
+
+👉Interview Pointer:
+Differnce between delete(DML), drop and truncate
+
+Delte - delet will delete the rows based on gthe condtions
+roll back is possible
+choose it when you need data to be dleed based on the condtion.
+Memory allocation will be reused
+Truncate:
+Rows will be delted and memoallocation will be reset
+
+
+Drop:
+the structure of the table will be dleted along with the memoallocation
+
+
+Differnce between rename with alter and rename
+Rename with alter - using this we can rename a column name or table name but prefreble for coulmn names
+Rename- this is used to rename the table name, mutiple table names can e renamed;
+
+Differnce between drop with alter and DROP
+
+
+
+------------------------------------------------------------------------
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| myinfo             |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.12 sec)
+
+mysql> use myinfo;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_myinfo |
++------------------+
+| studentinfo      |
+| studentinfo_copy |
++------------------+
+2 rows in set (0.03 sec)
+
+mysql> select * from studentinfo_copy;
++------+---------+-----------------+------------+
+| sid  | sname   | semail          | doclasses  |
++------+---------+-----------------+------------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 |
+|  107 | Hemani  | NULL            | NULL       |
++------+---------+-----------------+------------+
+7 rows in set (0.10 sec)
+
+mysql> desc studentinfo_copy;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sid       | int         | YES  |     | NULL    |       |
+| sname     | varchar(20) | YES  |     | NULL    |       |
+| semail    | varchar(20) | YES  |     | NULL    |       |
+| doclasses | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table studentinfo_copy ADD s_age varchar(4);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studentinfo_copy;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sid       | int         | YES  |     | NULL    |       |
+| sname     | varchar(20) | YES  |     | NULL    |       |
+| semail    | varchar(20) | YES  |     | NULL    |       |
+| doclasses | date        | YES  |     | NULL    |       |
+| s_age     | varchar(4)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentinfo_copy;
++------+---------+-----------------+------------+-------+
+| sid  | sname   | semail          | doclasses  | s_age |
++------+---------+-----------------+------------+-------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 | NULL  |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 | NULL  |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 | NULL  |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 | NULL  |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 | NULL  |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 | NULL  |
+|  107 | Hemani  | NULL            | NULL       | NULL  |
++------+---------+-----------------+------------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentinfo_copy ADD(s-address varchar(100),s_phone varchar(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-address varchar(100),s_phone varchar(10))' at line 1
+mysql> alter table studentinfo_copy ADD(s_address varchar(100),s_phone varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentinfo_copy;
++------+---------+-----------------+------------+-------+-----------+---------+
+| sid  | sname   | semail          | doclasses  | s_age | s_address | s_phone |
++------+---------+-----------------+------------+-------+-----------+---------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 | NULL  | NULL      | NULL    |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 | NULL  | NULL      | NULL    |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 | NULL  | NULL      | NULL    |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 | NULL  | NULL      | NULL    |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 | NULL  | NULL      | NULL    |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 | NULL  | NULL      | NULL    |
+|  107 | Hemani  | NULL            | NULL       | NULL  | NULL      | NULL    |
++------+---------+-----------------+------------+-------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentinfo_copy MODIFY s_address varchar(50);
+Query OK, 7 rows affected (0.34 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> desc table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> desc studentinfo_copy;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sid       | int         | YES  |     | NULL    |       |
+| sname     | varchar(20) | YES  |     | NULL    |       |
+| semail    | varchar(20) | YES  |     | NULL    |       |
+| doclasses | date        | YES  |     | NULL    |       |
+| s_age     | varchar(4)  | YES  |     | NULL    |       |
+| s_address | varchar(50) | YES  |     | NULL    |       |
+| s_phone   | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentinfo_copy RENAME column sid to s_id;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentinfo_copy;
++------+---------+-----------------+------------+-------+-----------+---------+
+| s_id | sname   | semail          | doclasses  | s_age | s_address | s_phone |
++------+---------+-----------------+------------+-------+-----------+---------+
+|  101 | Anu     | anu@gmail.com   | 2025-09-29 | NULL  | NULL      | NULL    |
+|  102 | Radha   | Radha@gmail.com | 2026-01-29 | NULL  | NULL      | NULL    |
+|  103 | Deepika | Deepika@gmail   | 2024-10-10 | NULL  | NULL      | NULL    |
+|  104 | jp      | jp@gmail.com    | 2023-02-12 | NULL  | NULL      | NULL    |
+|  105 | Ivanshi | Radha@gmail.com | 2026-01-29 | NULL  | NULL      | NULL    |
+|  106 | Ivani   | a@gmail.com     | 2026-01-28 | NULL  | NULL      | NULL    |
+|  107 | Hemani  | NULL            | NULL       | NULL  | NULL      | NULL    |
++------+---------+-----------------+------------+-------+-----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> create table dummy(
+    -> s_id int(2),
+    -> s_name varchar(10),
+    -> s_age varchar(4)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_myinfo |
++------------------+
+| dummy            |
+| studentinfo      |
+| studentinfo_copy |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc dummy;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_id   | int         | YES  |     | NULL    |       |
+| s_name | varchar(10) | YES  |     | NULL    |       |
+| s_age  | varchar(4)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dummy;
+Empty set (0.00 sec)
+
+mysql> alter table dummy DROP column s_age;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from dummy;
+Empty set (0.00 sec)
+
+mysql> desc dummy;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_id   | int         | YES  |     | NULL    |       |
+| s_name | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table dummy DROP s_id;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dummy;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_name | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> alter table dummy drop column s_age;
+ERROR 1091 (42000): Can't DROP 's_age'; check that column/key exists
+mysql> alter table dummy drop column s_name;
+ERROR 1090 (42000): You can't delete all columns with ALTER TABLE; use DROP TABLE instead
+mysql> rename table dummy to dummy_table;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_myinfo |
++------------------+
+| dummy_table      |
+| studentinfo      |
+| studentinfo_copy |
++------------------+
+3 rows in set (0.01 sec)
+
+mysql> create table dummy_info(
+    -> s_id int(10),
+    -> s_name varchar(10),
+    -> s_age vatchar(4),
+    -> s_email varchar(10)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vatchar(4),
+s_email varchar(10)
+)' at line 4
+mysql> create table dummy(
+    -> s_id int(2),
+    -> s_name varchar(10),
+    -> s_age varchar(4),
+    -> s_email varchar(10),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> create table dummy_info(
+    -> s_id int(2),
+    -> s_name varchar(10),
+    -> s_age varchar(10)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.12 sec)
+
+mysql> desc dummy_info;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_id   | int         | YES  |     | NULL    |       |
+| s_name | varchar(10) | YES  |     | NULL    |       |
+| s_age  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dummy_info;
+Empty set (0.00 sec)
+
+mysql> truncate table dummy_info;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc dummy_info;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_id   | int         | YES  |     | NULL    |       |
+| s_name | varchar(10) | YES  |     | NULL    |       |
+| s_age  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table dummy_info;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> truncate table dummy_table;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from dummy_table;
+Empty set (0.01 sec)
+
+mysql> desc dummy_table;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_name | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> drop table dummy_info;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_myinfo |
++------------------+
+| dummy_table      |
+| studentinfo      |
+| studentinfo_copy |
++------------------+
