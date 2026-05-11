@@ -1,0 +1,110 @@
+use myclass;
+show tables;
+CREATE TABLE Students_A (
+    id INT,
+    name VARCHAR(50)
+);
+desc Students_A;
+
+CREATE TABLE Students_B (
+    id INT,
+    name VARCHAR(50)
+);
+desc Students_B;
+
+INSERT INTO Students_A VALUES
+(1, 'Rahul'),
+(2, 'Sneha'),
+(3, 'Arjun'),
+(4, 'Priya');
+select * from Students_A;
+INSERT INTO Students_B VALUES
+(3, 'Arjun'),
+(4, 'Priya'),
+(5, 'Kiran'),
+(6, 'Meena');
+select * from Students_A;
+select * from Students_B;
+
+-- UNION
+select * from Students_A
+UNION
+select * from Students_B;
+-- UNION ALL
+select * from Students_A
+UNION ALL
+select * from Students_B;
+-- INTERSECTION--
+-- select * from Students_A
+-- INTERSECT
+-- select * from Students_B; 
+-- EXCEPT
+-- select * from Students_A
+-- EXCEPT
+-- select * from Students_B;
+-- select * from Students_B
+-- EXCEPT
+-- select * from Students_A;
+show tables;
+CREATE TABLE Employees (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    dept_id INT
+);
+
+CREATE TABLE Departments (
+    dept_id INT,
+    dept_name VARCHAR(50)
+);
+desc Employees;
+desc Departments;
+INSERT INTO Employees VALUES
+(101, 'Rahul', 1),
+(102, 'Sneha', 2),
+(103, 'Arjun', 3),
+(104, 'Priya', NULL),
+(105, 'Kiran', 2);
+select * from Employees;
+INSERT INTO Departments VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Finance'),
+(4, 'Marketing');
+-- InnerJoin
+select e.emp_id,e.emp_name,e.dept_id,d.dept_name from Employees  e
+INNER JOIN Departments  d
+ON e.dept_id = d.dept_id;
+-- LeftJoin-- 
+select e.emp_id,e.emp_name,e.dept_id,d.dept_name from Employees  e
+LEFT JOIN Departments  d
+ON e.dept_id = d.dept_id;
+-- RightJoin-- 
+select e.emp_id,e.emp_name,e.dept_id,d.dept_name from Employees  e
+RIGHT JOIN Departments  d
+ON e.dept_id = d.dept_id;
+-- Cross Join-- 
+select e.emp_id,e.emp_name, e.dept_id,d.dept_name from Employees e
+CROSS JOIN Departments d;
+-- fulljoin
+select e.emp_id,e.emp_name,e.dept_id,d.dept_name from Employees  e
+LEFT JOIN Departments  d
+ON e.dept_id = d.dept_id
+UNION
+
+
+
+
+select e.emp_id,e.emp_name,e.dept_id,d.dept_name from Employees  e
+RIGHT JOIN Departments  d
+ON e.dept_id = d.dept_id;
+
+-- jOIN
+SELECT * from Employees JOIN
+Departments WHERE
+Employees.dept_id = Departments.dept_id;
+
+SELECT * from Employees INNER JOIN
+Departments ON
+Employees.dept_id = Departments.dept_id;
+
+
